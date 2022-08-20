@@ -33,7 +33,7 @@
 | 5V      | VIN      |
 | GND     | GND      |
 
-![image](/pic/1.png)
+![image](实物价格.png)
 
 ### 软件部分
 
