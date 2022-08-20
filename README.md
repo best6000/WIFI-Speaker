@@ -6,10 +6,13 @@
 - 感谢MrDIY先生已经实现了我所有想要的功能
 
 　　项目原地址:https://www.instructables.com/MQTT-Audio-Notifier-for-ESP8266-Play-MP3-TTS-RTTL/
+  
 　　视频地址:https://www.youtube.com/watch?v=SPa9SMyPU58
 
 - 感谢aspork42先生做了一个圆圆的火箭🚀外壳，但是我懒得打印直接用以前的收音机壳子了！值得一提的是aspork42先生做出了改进允许多个设备订阅不同的主题，实现不同设备的单独控制。也可以选择订阅相同主题，实现不同房间的同步播放。
+
 　　项目原地址:https://github.com/aspork42/speaker
+  
 - 感谢一盏电灯up主提供的随机获取网易云热歌榜歌曲以及NodeRed结合HomeAssistant实现播放控制的思路。
 ### 基本功能
 - 推送mp3文件播放
