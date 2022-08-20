@@ -33,7 +33,9 @@
 | 5V      | VIN      |
 | GND     | GND      |
 
-![价格](https://github.com/best6000/WIFI-Speaker/blob/main/pic/1.jpg)
+<div align="center">
+<img src=https://github.com/best6000/WIFI-Speaker/blob/main/pic/1.jpg width=20%/>
+</div>
 
 ### 软件部分
 
