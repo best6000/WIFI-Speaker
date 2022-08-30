@@ -1,0 +1,1079 @@
+[
+    {
+        "id": "b15d9b85bea6293f",
+        "type": "tab",
+        "label": "WIFIwdafa",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9a9c416e06ec585e",
+        "type": "http request",
+        "z": "b15d9b85bea6293f",
+        "name": "发送请求",
+        "method": "POST",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.uomg.com/api/rand.music?sort=%E7%83%AD%E6%AD%8C%E6%A6%9C&format=json",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 340,
+        "y": 740,
+        "wires": [
+            [
+                "0b7850dbb29b2c59"
+            ]
+        ]
+    },
+    {
+        "id": "0b7850dbb29b2c59",
+        "type": "switch",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "property": "payload.code",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 470,
+        "y": 740,
+        "wires": [
+            [
+                "86823aef362a0e0f"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "86823aef362a0e0f",
+        "type": "function",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "func": "msg.song = msg.payload.data.url;\nmsg.song += \".mp3\"; \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 740,
+        "wires": [
+            [
+                "e1da3c943b2d6e0b",
+                "af8f8fc65b345889"
+            ]
+        ]
+    },
+    {
+        "id": "e1da3c943b2d6e0b",
+        "type": "change",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.data.url",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 780,
+        "wires": [
+            [
+                "4356fd006b0d9bc2"
+            ]
+        ]
+    },
+    {
+        "id": "af8f8fc65b345889",
+        "type": "change",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.data.name",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 830,
+        "y": 740,
+        "wires": [
+            [
+                "fcc7447d1f4abd00"
+            ]
+        ]
+    },
+    {
+        "id": "fcc7447d1f4abd00",
+        "type": "api-call-service",
+        "z": "b15d9b85bea6293f",
+        "name": "设置标题",
+        "server": "267a9071cebe35b0",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "input_text",
+        "service": "set_value",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_text.ge_qu_ming_cheng"
+        ],
+        "data": "{\t\t\t  \"value\" : \"\" & payload & \"\"\t   \t}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1100,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a5dd139730e8e362",
+        "type": "switch",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "off",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "on",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 470,
+        "y": 560,
+        "wires": [
+            [
+                "dbdbcad25783a6d6"
+            ],
+            [
+                "9a9c416e06ec585e"
+            ]
+        ]
+    },
+    {
+        "id": "2836009233bd43ed",
+        "type": "trigger-state",
+        "z": "b15d9b85bea6293f",
+        "name": "随机播放",
+        "server": "267a9071cebe35b0",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityid": "input_boolean.sui_ji_bo_fang_ge_qu",
+        "entityidfiltertype": "exact",
+        "debugenabled": false,
+        "constraints": [
+            {
+                "targetType": "this_entity",
+                "targetValue": "",
+                "propertyType": "current_state",
+                "propertyValue": "new_state.state",
+                "comparatorType": "is",
+                "comparatorValueDatatype": "str",
+                "comparatorValue": ""
+            }
+        ],
+        "inputs": 0,
+        "outputs": 2,
+        "customoutputs": [],
+        "outputinitially": false,
+        "state_type": "str",
+        "enableInput": false,
+        "x": 300,
+        "y": 560,
+        "wires": [
+            [],
+            [
+                "a5dd139730e8e362",
+                "c5a9a483f76b7bc3"
+            ]
+        ]
+    },
+    {
+        "id": "6c945bee54c0ddad",
+        "type": "api-current-state",
+        "z": "b15d9b85bea6293f",
+        "name": "循环判断",
+        "server": "267a9071cebe35b0",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_boolean.sui_ji_bo_fang_ge_qu",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": 0,
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 1680,
+        "y": 1060,
+        "wires": [
+            [
+                "9a9c416e06ec585e"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "1b3f96d5bddfea5c",
+        "type": "trigger-state",
+        "z": "b15d9b85bea6293f",
+        "name": "切歌",
+        "server": "267a9071cebe35b0",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityid": "input_boolean.qie_ge",
+        "entityidfiltertype": "exact",
+        "debugenabled": false,
+        "constraints": [
+            {
+                "targetType": "this_entity",
+                "targetValue": "",
+                "propertyType": "current_state",
+                "propertyValue": "new_state.state",
+                "comparatorType": "is",
+                "comparatorValueDatatype": "str",
+                "comparatorValue": "on"
+            }
+        ],
+        "inputs": 0,
+        "outputs": 2,
+        "customoutputs": [],
+        "outputinitially": true,
+        "state_type": "str",
+        "enableInput": false,
+        "x": 890,
+        "y": 1180,
+        "wires": [
+            [
+                "a850acad3d0a85a0",
+                "6c945bee54c0ddad"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f5de1951950888de",
+        "type": "api-call-service",
+        "z": "b15d9b85bea6293f",
+        "name": "按钮处理",
+        "server": "267a9071cebe35b0",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "input_boolean",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.qie_ge"
+        ],
+        "data": "{}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 1260,
+        "y": 1180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a850acad3d0a85a0",
+        "type": "delay",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1080,
+        "y": 1180,
+        "wires": [
+            [
+                "f5de1951950888de"
+            ]
+        ]
+    },
+    {
+        "id": "36d612c10bdbbf55",
+        "type": "http request",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 1260,
+        "y": 800,
+        "wires": [
+            [
+                "ee5546a0cb66fdc1"
+            ]
+        ]
+    },
+    {
+        "id": "ee5546a0cb66fdc1",
+        "type": "function",
+        "z": "b15d9b85bea6293f",
+        "name": "function 6",
+        "func": "var tmp = msg.responseUrl;\nmsg.payload = tmp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 800,
+        "wires": [
+            [
+                "1d57cfef874aa1da"
+            ]
+        ]
+    },
+    {
+        "id": "4356fd006b0d9bc2",
+        "type": "function",
+        "z": "b15d9b85bea6293f",
+        "name": "function 7",
+        "func": "var tmp = msg.payload;\nmsg.url = tmp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 800,
+        "wires": [
+            [
+                "36d612c10bdbbf55"
+            ]
+        ]
+    },
+    {
+        "id": "1d57cfef874aa1da",
+        "type": "mqtt out",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "topic": "audio2/play",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2e16e483b0f78e55",
+        "x": 1590,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "dbdbcad25783a6d6",
+        "type": "mqtt out",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "topic": "audio2/stop",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2e16e483b0f78e55",
+        "x": 770,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "7752b78637a26f81",
+        "type": "mqtt in",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "topic": "audio2/status",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2e16e483b0f78e55",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 1040,
+        "wires": [
+            [
+                "52e60bcf4e227f9a"
+            ]
+        ]
+    },
+    {
+        "id": "f2a6733a80cac6bb",
+        "type": "api-current-state",
+        "z": "b15d9b85bea6293f",
+        "name": "payload变为切歌按钮状态",
+        "server": "267a9071cebe35b0",
+        "version": 3,
+        "outputs": 2,
+        "halt_if": "on",
+        "halt_if_type": "str",
+        "halt_if_compare": "is",
+        "entity_id": "input_boolean.qie_ge",
+        "state_type": "str",
+        "blockInputOverrides": false,
+        "outputProperties": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entityState"
+            },
+            {
+                "property": "data",
+                "propertyType": "msg",
+                "value": "",
+                "valueType": "entity"
+            }
+        ],
+        "for": "0",
+        "forType": "num",
+        "forUnits": "minutes",
+        "override_topic": false,
+        "state_location": "payload",
+        "override_payload": "msg",
+        "entity_location": "data",
+        "override_data": "msg",
+        "x": 1030,
+        "y": 1040,
+        "wires": [
+            [
+                "4a3ec10af053f4ca"
+            ],
+            [
+                "4a3ec10af053f4ca"
+            ]
+        ]
+    },
+    {
+        "id": "4a3ec10af053f4ca",
+        "type": "function",
+        "z": "b15d9b85bea6293f",
+        "name": "切歌状态off才执行",
+        "func": "if(msg.payload==='on')\n{\n    return null;\n}\nelse\n{\n    return msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1310,
+        "y": 1040,
+        "wires": [
+            [
+                "6c945bee54c0ddad"
+            ]
+        ]
+    },
+    {
+        "id": "64a769c143e364ef",
+        "type": "trigger-state",
+        "z": "b15d9b85bea6293f",
+        "name": "音量",
+        "server": "267a9071cebe35b0",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityid": "input_number.yin_liang",
+        "entityidfiltertype": "exact",
+        "debugenabled": false,
+        "constraints": [
+            {
+                "targetType": "this_entity",
+                "targetValue": "",
+                "propertyType": "current_state",
+                "propertyValue": "new_state.state",
+                "comparatorType": "is",
+                "comparatorValueDatatype": "str",
+                "comparatorValue": "on"
+            }
+        ],
+        "inputs": 0,
+        "outputs": 2,
+        "customoutputs": [],
+        "outputinitially": true,
+        "state_type": "num",
+        "enableInput": false,
+        "x": 550,
+        "y": 1360,
+        "wires": [
+            [],
+            [
+                "ea09abb989d48472"
+            ]
+        ]
+    },
+    {
+        "id": "ea09abb989d48472",
+        "type": "function",
+        "z": "b15d9b85bea6293f",
+        "name": "function 9",
+        "func": "var tmp = msg.payload/100;\nmsg.payload = tmp;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 1360,
+        "wires": [
+            [
+                "9cf89c6d25fd2952"
+            ]
+        ]
+    },
+    {
+        "id": "9cf89c6d25fd2952",
+        "type": "mqtt out",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "topic": "audio2/volume",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2e16e483b0f78e55",
+        "x": 1000,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "d82ccb20685a3ff8",
+        "type": "function",
+        "z": "b15d9b85bea6293f",
+        "name": "设置mp3",
+        "func": "var tmp = \"http://tsn.baidu.com/text2audio?lan=zh&ctp=1&cuid=abcdxxx&tok=24.709b16368e7747df871a4d69d29f5b40.2592000.1662656395.282335-26966662&vol=9&per=0&spd=5&pit=5&aue=3&tex=\";\nmsg.payload = tmp+msg.payload+\"。嗯\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 1700,
+        "wires": [
+            [
+                "ac897d088bdf7f29"
+            ]
+        ]
+    },
+    {
+        "id": "7a13fa7955dc84d0",
+        "type": "mqtt out",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "topic": "audio2/play",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "2e16e483b0f78e55",
+        "x": 1250,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "c44fc757a6ec4059",
+        "type": "trigger-state",
+        "z": "b15d9b85bea6293f",
+        "name": "TTS发送按钮",
+        "server": "267a9071cebe35b0",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityid": "input_boolean.tts",
+        "entityidfiltertype": "exact",
+        "debugenabled": false,
+        "constraints": [
+            {
+                "targetType": "this_entity",
+                "targetValue": "",
+                "propertyType": "current_state",
+                "propertyValue": "new_state.state",
+                "comparatorType": "is",
+                "comparatorValueDatatype": "str",
+                "comparatorValue": "on"
+            }
+        ],
+        "inputs": 0,
+        "outputs": 2,
+        "customoutputs": [],
+        "outputinitially": true,
+        "state_type": "habool",
+        "enableInput": false,
+        "x": 290,
+        "y": 1700,
+        "wires": [
+            [],
+            [
+                "2281685546f1ca7c",
+                "5258aa48c6345a91",
+                "2e60ca95eeb82451"
+            ]
+        ]
+    },
+    {
+        "id": "8ac605010aaa4982",
+        "type": "api-call-service",
+        "z": "b15d9b85bea6293f",
+        "name": "按钮处理",
+        "server": "267a9071cebe35b0",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "input_boolean",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.tts"
+        ],
+        "data": "{}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 820,
+        "y": 1820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2281685546f1ca7c",
+        "type": "delay",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 660,
+        "y": 1820,
+        "wires": [
+            [
+                "8ac605010aaa4982"
+            ]
+        ]
+    },
+    {
+        "id": "ca7c702860e95a6d",
+        "type": "trigger-state",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "server": "267a9071cebe35b0",
+        "version": 2,
+        "exposeToHomeAssistant": false,
+        "haConfig": [
+            {
+                "property": "name",
+                "value": ""
+            },
+            {
+                "property": "icon",
+                "value": ""
+            }
+        ],
+        "entityid": "input_text.tts",
+        "entityidfiltertype": "exact",
+        "debugenabled": false,
+        "constraints": [],
+        "inputs": 0,
+        "outputs": 2,
+        "customoutputs": [],
+        "outputinitially": true,
+        "state_type": "str",
+        "enableInput": false,
+        "x": 330,
+        "y": 40,
+        "wires": [
+            [
+                "c0b2f3d144044b75"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c0b2f3d144044b75",
+        "type": "function",
+        "z": "b15d9b85bea6293f",
+        "name": "tts文本作为全局变量",
+        "func": "var flow_v = flow.get(\"flow_v\") || \"\";\nflow_v = msg.payload;\nflow.set(\"flow_v\", flow_v);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5258aa48c6345a91",
+        "type": "function",
+        "z": "b15d9b85bea6293f",
+        "name": "function 14",
+        "func": "if(msg.payload==true)\n{\n    var flow_v = flow.get(\"flow_v\") || \"\";\n    msg.payload = flow_v;\n    flow.set(\"flow_v\", flow_v);\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 1700,
+        "wires": [
+            [
+                "d82ccb20685a3ff8"
+            ]
+        ]
+    },
+    {
+        "id": "2e60ca95eeb82451",
+        "type": "api-call-service",
+        "z": "b15d9b85bea6293f",
+        "name": "按钮处理",
+        "server": "267a9071cebe35b0",
+        "version": 5,
+        "debugenabled": false,
+        "domain": "input_boolean",
+        "service": "turn_off",
+        "areaId": [],
+        "deviceId": [],
+        "entityId": [
+            "input_boolean.sui_ji_bo_fang_ge_qu"
+        ],
+        "data": "{}",
+        "dataType": "jsonata",
+        "mergeContext": "",
+        "mustacheAltTags": false,
+        "outputProperties": [],
+        "queue": "none",
+        "x": 600,
+        "y": 1620,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c2c152bc13bccdf5",
+        "type": "comment",
+        "z": "b15d9b85bea6293f",
+        "name": "自动播放",
+        "info": "- 在随机播放按钮开的状态下\n- 实现自动播放下一首的逻辑\n- 存在的一个问题在于\n一旦在播放时有一个讯号接连输入\n讯号1被切断时产生idle，产生讯号2的playing\n如果随机播放按钮打开，这会导致一个讯号3产生,讯号3导致idle和playing产生\n讯号3又去打断讯号2，恶性循环\n\n如果是正常情况讯号1播放完产生idle\n只会有讯号3加入，而讯号2就是万恶之源\n\n所以关闭随机播放按钮是一个不错的做法，遏制了这条自动流的运作\n然而关闭随机播放也会立刻产生一条idle，所以需要加一个小小的延时\n\n如果讯号1时tts，讯号2是随机播放\n那么此时随机播放按钮又是打开的，这很不幸地会产生一个讯号3\n我的评价是要杜绝这种情况",
+        "x": 260,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "ac897d088bdf7f29",
+        "type": "delay",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 1040,
+        "y": 1700,
+        "wires": [
+            [
+                "7a13fa7955dc84d0"
+            ]
+        ]
+    },
+    {
+        "id": "c5a9a483f76b7bc3",
+        "type": "debug",
+        "z": "b15d9b85bea6293f",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "bda821db1c555684",
+        "type": "function",
+        "z": "b15d9b85bea6293f",
+        "name": "播放器状态作为全局变量",
+        "func": "var flow_v_player_state = flow.get(\"flow_v_player_state\") || \"\";\nflow_v_player_state = msg.payload;\nflow.set(\"flow_v_player_state\", flow_v_player_state);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 570,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6f9d70b99ef02f46",
+        "type": "mqtt in",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "topic": "audio2/status",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "2e16e483b0f78e55",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 120,
+        "wires": [
+            [
+                "bda821db1c555684"
+            ]
+        ]
+    },
+    {
+        "id": "52e60bcf4e227f9a",
+        "type": "delay",
+        "z": "b15d9b85bea6293f",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 520,
+        "y": 1040,
+        "wires": [
+            [
+                "0585b95961105ab3"
+            ]
+        ]
+    },
+    {
+        "id": "0585b95961105ab3",
+        "type": "function",
+        "z": "b15d9b85bea6293f",
+        "name": "状态为idle",
+        "func": "var flow_v_player_state = flow.get(\"flow_v_player_state\") || \"\";\nif (flow_v_player_state == \"idle\")\n{\n    return msg;\n}\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 1040,
+        "wires": [
+            [
+                "f2a6733a80cac6bb"
+            ]
+        ]
+    },
+    {
+        "id": "267a9071cebe35b0",
+        "type": "server",
+        "name": "Home Assistant",
+        "version": 4,
+        "addon": false,
+        "rejectUnauthorizedCerts": true,
+        "ha_boolean": "y|yes|true|on|home|open",
+        "connectionDelay": true,
+        "cacheJson": true,
+        "heartbeat": false,
+        "heartbeatInterval": "30",
+        "areaSelector": "friendlyName",
+        "deviceSelector": "friendlyName",
+        "entitySelector": "friendlyName",
+        "statusSeparator": "at: ",
+        "statusYear": "hidden",
+        "statusMonth": "short",
+        "statusDay": "numeric",
+        "statusHourCycle": "h23",
+        "statusTimeFormat": "h:m"
+    },
+    {
+        "id": "2e16e483b0f78e55",
+        "type": "mqtt-broker",
+        "name": "NodeRed的MQTT节点",
+        "broker": "192.168.3.11",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
